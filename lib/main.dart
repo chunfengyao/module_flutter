@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
+import 'pages/PageLoading.dart';
+import 'pages/TransparentPageLoading.dart';
+import 'constants/ConstantValue.dart';
 
-void main() => runApp(MyApp());
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or press Run > Flutter Hot Reload in a Flutter IDE). Notice that the
-        // counter didn't reset back to zero; the application is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'FlutterDemo入口页面'),
-    );
-  }
+void main() {
+  return runApp(MaterialApp(
+    //默认的路由地址。
+    initialRoute: routeLoading,
+    //两条路由，目前使用同一个页面，只是标题不同。
+    routes: {
+      routeLoading: (context) => LoadingPage(),
+      '/child': (context) {
+        return MyHomePage(title: 'Flutter子页面样例');
+      },
+      '/home': (context) => MyHomePage(title: 'FlutterDemo入口页面'),
+      '/secondPage': (context) => MyHomePage(title: 'FlutterDemo的第二个页面'),
+      routeTransparentLoading:(context) => TransparentLoadingPage(),
+    },
+  ));
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title}) : super(key: key) {
+    //注册监听，用来收取原生端的事件。
+  }
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
